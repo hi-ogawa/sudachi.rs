@@ -14,10 +14,10 @@
  *  limitations under the License.
  */
 
-#[cfg(target_family = "wasm")]
-type Library = ();
 #[cfg(not(target_family = "wasm"))]
 use libloading::{Library, Symbol};
+#[cfg(target_family = "wasm")]
+type Library = ();
 use serde_json::Value;
 
 use crate::config::{Config, ConfigError};
