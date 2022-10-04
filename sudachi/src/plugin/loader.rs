@@ -128,15 +128,25 @@ impl<'a, 'b, T: PluginCategory + ?Sized> PluginLoader<'a, 'b, T> {
                 }
             // Otherwise treat name as DSO
             } else {
-                todo!()
-                // let candidates = self.resolve_dso_names(name);
-                // self.load_plugin_from_dso(&candidates)?
+                self.load_plugin_dso(name)?
             };
 
         <T as PluginCategory>::do_setup(&mut plugin, plugin_cfg, &self.cfg, &mut self.grammar)
             .map_err(|e| e.with_context(format!("plugin {} setup", name)))?;
         self.plugins.push(plugin);
         Ok(())
+    }
+
+    #[cfg(not(target_family = "wasm"))]
+    fn load_plugin_dso(&mut self, name: &str) -> SudachiResult<<T as PluginCategory>::BoxType> {
+        let candidates = self.resolve_dso_names(name);
+        self.load_plugin_from_dso(&candidates)
+    }
+
+    #[cfg(target_family = "wasm")]
+    fn load_plugin_dso(&mut self, _name: &str) -> SudachiResult<<T as PluginCategory>::BoxType> {
+        let error = std::io::Error::new(std::io::ErrorKind::Other, "dso plugin not supported");
+        Err(SudachiError::from(error))
     }
 
     #[cfg(not(target_family = "wasm"))]
