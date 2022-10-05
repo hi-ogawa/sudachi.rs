@@ -59,18 +59,15 @@ impl From<LLError> for PluginError {
     }
 }
 
-pub(crate) struct Plugins {
-    pub(crate) connect_cost: PluginContainer<dyn EditConnectionCostPlugin>,
+pub struct Plugins {
+    pub connect_cost: PluginContainer<dyn EditConnectionCostPlugin>,
     pub(crate) input_text: PluginContainer<dyn InputTextPlugin>,
-    pub(crate) oov: PluginContainer<dyn OovProviderPlugin>,
+    pub oov: PluginContainer<dyn OovProviderPlugin>,
     pub(crate) path_rewrite: PluginContainer<dyn PathRewritePlugin>,
 }
 
 impl Plugins {
-    pub(crate) fn load<'a, 'b>(
-        cfg: &'a Config,
-        grammar: &'a mut Grammar<'b>,
-    ) -> SudachiResult<Plugins>
+    pub fn load<'a, 'b>(cfg: &'a Config, grammar: &'a mut Grammar<'b>) -> SudachiResult<Plugins>
     where
         'b: 'a,
     {

@@ -41,12 +41,12 @@ use crate::plugin::Plugins;
 // This structure is always read only after creation and is safe to share
 // between threads.
 pub struct JapaneseDictionary {
-    storage: SudachiDicData,
-    plugins: Plugins,
+    pub storage: SudachiDicData,
+    pub plugins: Plugins,
     //'static is a a lie, lifetime is the same with StorageBackend
-    _grammar: Grammar<'static>,
+    pub _grammar: Grammar<'static>,
     //'static is a a lie, lifetime is the same with StorageBackend
-    _lexicon: LexiconSet<'static>,
+    pub _lexicon: LexiconSet<'static>,
 }
 
 fn map_file(path: &Path) -> SudachiResult<Storage> {
