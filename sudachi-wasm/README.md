@@ -3,10 +3,10 @@
 ```sh
 # build
 npm i
+npm run setup # fetch dictionary data
 npm run dev
 
 # example
-bash misc/download-dictionary.sh
 node bin/index.js 検索は次の言語でもご利用いただけます misc/data/sudachi-dictionary-20220729/system_small.dic
 
 # embed dictoinary in wasm file

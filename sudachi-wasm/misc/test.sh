@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu -o pipefail
 
-actual="$(node index-cli.js '検索は次の言語でもご利用いただけます')"
+actual="$(node bin/index.js '検索は次の言語でもご利用いただけます')"
 
 expected='
 [

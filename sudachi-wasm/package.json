@@ -15,6 +15,7 @@
     "build": "      npm run wasm-pack                                      && npm run fix-pkg",
     "build:embed": "npm run wasm-pack -- --features embed_dictionary       && npm run fix-pkg",
     "build:release": "SUDACHI_WASM_EMBED_DICTIONARY=\"$PWD/misc/data/sudachi-dictionary-20220729/system_small.dic\" npm run build:embed",
+    "setup": "bash misc/download-dictionary.sh",
     "wasm-pack": "wasm-pack build --target web --out-name index",
     "fix-pkg": "rm -f pkg/package.json",
     "test": "bash misc/test.sh"
