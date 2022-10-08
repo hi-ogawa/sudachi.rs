@@ -1,6 +1,6 @@
 {
   "name": "@hiogawa/sudachi.wasm",
-  "version": "1.0.0-pre.1",
+  "version": "1.0.0",
   "type": "module",
   "bin": "./bin/index.js",
   "main": "./pkg/index.js",
