@@ -1,0 +1,41 @@
+name: wasm
+"on":
+  - push
+jobs:
+  # based on https://github.com/rustwasm/wasm-pack/blob/10f30be713f03eae68df21b34a220c03b45d871f/.github/workflows/test.yml
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      # javascript
+      - uses: pnpm/action-setup@v2.0.1
+        with:
+          version: 7
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      # rust
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+          target: wasm32-unknown-unknown
+      - name: cache dependencies
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-dependencies
+        with:
+          path: |
+            ~/.cargo/.crates.toml
+            ~/.cargo/.crates2.json
+            ~/.cargo/bin
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            target
+          key: ${{ runner.os }}-cargo-wasm-${{ hashFiles('Cargo.lock') }}
+      # build
+      - run: pnpm -C sudachi-wasm i --frozen-lockfile
+      - run: npm -C sudachi-wasm run setup
+      - run: npm -C sudachi-wasm run build:release
+      # test
+      - run: npm -C sudachi-wasm run test

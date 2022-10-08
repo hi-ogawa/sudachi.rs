@@ -14,12 +14,16 @@
  *  limitations under the License.
  */
 
+#[cfg(not(target_family = "wasm"))]
 use libloading::{Library, Symbol};
+#[cfg(target_family = "wasm")]
+type Library = ();
 use serde_json::Value;
 
 use crate::config::{Config, ConfigError};
 use crate::dic::grammar::Grammar;
 use crate::error::{SudachiError, SudachiResult};
+#[cfg(not(target_family = "wasm"))]
 use crate::plugin::PluginError;
 
 /// Holds loaded plugins, whether they are bundled
@@ -67,6 +71,7 @@ fn make_system_specific_name(s: &str) -> String {
     format!("lib{}.dylib", s)
 }
 
+#[cfg(not(target_family = "wasm"))]
 fn system_specific_name(s: &str) -> Option<String> {
     if s.contains('.') {
         None
@@ -123,8 +128,7 @@ impl<'a, 'b, T: PluginCategory + ?Sized> PluginLoader<'a, 'b, T> {
                 }
             // Otherwise treat name as DSO
             } else {
-                let candidates = self.resolve_dso_names(name);
-                self.load_plugin_from_dso(&candidates)?
+                self.load_plugin_dso(name)?
             };
 
         <T as PluginCategory>::do_setup(&mut plugin, plugin_cfg, &self.cfg, &mut self.grammar)
@@ -133,6 +137,19 @@ impl<'a, 'b, T: PluginCategory + ?Sized> PluginLoader<'a, 'b, T> {
         Ok(())
     }
 
+    #[cfg(not(target_family = "wasm"))]
+    fn load_plugin_dso(&mut self, name: &str) -> SudachiResult<<T as PluginCategory>::BoxType> {
+        let candidates = self.resolve_dso_names(name);
+        self.load_plugin_from_dso(&candidates)
+    }
+
+    #[cfg(target_family = "wasm")]
+    fn load_plugin_dso(&mut self, _name: &str) -> SudachiResult<<T as PluginCategory>::BoxType> {
+        let error = std::io::Error::new(std::io::ErrorKind::Other, "dso plugin not supported");
+        Err(SudachiError::from(error))
+    }
+
+    #[cfg(not(target_family = "wasm"))]
     fn resolve_dso_names(&self, name: &str) -> Vec<String> {
         let mut resolved = self.cfg.resolve_paths(name.to_owned());
 
@@ -144,6 +161,7 @@ impl<'a, 'b, T: PluginCategory + ?Sized> PluginLoader<'a, 'b, T> {
         resolved
     }
 
+    #[cfg(not(target_family = "wasm"))]
     fn try_load_library_from(candidates: &[String]) -> SudachiResult<(Library, &str)> {
         if candidates.is_empty() {
             return Err(SudachiError::PluginError(PluginError::InvalidDataFormat(
@@ -164,6 +182,7 @@ impl<'a, 'b, T: PluginCategory + ?Sized> PluginLoader<'a, 'b, T> {
         }))
     }
 
+    #[cfg(not(target_family = "wasm"))]
     fn load_plugin_from_dso(
         &mut self,
         candidates: &[String],
