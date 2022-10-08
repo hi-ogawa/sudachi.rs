@@ -32,7 +32,7 @@ jobs:
             ~/.cargo/registry/index
             ~/.cargo/registry/cache
             target
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('Cargo.lock') }}
+          key: ${{ runner.os }}-cargo-wasm-${{ hashFiles('Cargo.lock') }}
       # build
       - run: pnpm -C sudachi-wasm i --frozen-lockfile
       - run: npm -C sudachi-wasm run setup
