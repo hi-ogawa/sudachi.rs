@@ -3,7 +3,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { fileURLToPath } from "node:url";
-import { initSync, Tokenizer } from "../pkg/index.js";
+import { Tokenizer, initSync } from "../pkg/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DEFAULT_WASM_PATH = path.resolve(__dirname, "..", "pkg", "index_bg.wasm");

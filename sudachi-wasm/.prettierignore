@@ -1,0 +1,5 @@
+node_modules
+pkg
+misc/data
+build
+pnpm-lock.yaml
