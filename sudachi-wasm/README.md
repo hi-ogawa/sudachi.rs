@@ -2,7 +2,7 @@
 
 ```sh
 # cli usage
-npm install -g @hiogawa/sudachi.wasm
+volta install @hiogawa/sudachi.wasm
 sudachi.wasm 検索は次の言語でもご利用いただけます
 
 # build
@@ -94,9 +94,3 @@ npm publish --access public
 ```
 
 </details>
-
-## references
-
-- originally prototyped in https://github.com/hi-ogawa/japanese-line-break-segmenter/pull/7
-- https://rustwasm.github.io/wasm-bindgen/examples/without-a-bundler.html
-- https://rustwasm.github.io/wasm-pack/book/quickstart.html
