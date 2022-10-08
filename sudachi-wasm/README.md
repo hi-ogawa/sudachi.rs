@@ -1,6 +1,10 @@
 # sudachi-wasm
 
 ```sh
+# cli usage
+npm install -g @hiogawa/sudachi.wasm
+sudachi.wasm 検索は次の言語でもご利用いただけます
+
 # build
 npm i
 npm run setup # fetch dictionary data
