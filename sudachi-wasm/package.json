@@ -1,14 +1,19 @@
 {
-  "name": "@hiogawa/sudachi-wasm",
+  "name": "@hiogawa/sudachi.wasm",
   "version": "1.0.0-pre.0",
   "type": "module",
   "bin": "./bin/index.js",
   "main": "./pkg/index.js",
   "types": "./pkg/index.d.ts",
   "files": [
-    "bin",
-    "pkg"
+    "bin/*",
+    "pkg/*"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hi-ogawa/sudachi.rs",
+    "directory": "sudachi-wasm"
+  },
   "scripts": {
     "dev": "        npm run wasm-pack -- --dev                             && npm run fix-pkg",
     "dev:embed": "  npm run wasm-pack -- --dev --features embed_dictionary && npm run fix-pkg",
@@ -17,7 +22,7 @@
     "build:release": "SUDACHI_WASM_EMBED_DICTIONARY=\"$PWD/misc/data/sudachi-dictionary-20220729/system_small.dic\" npm run build:embed",
     "setup": "bash misc/download-dictionary.sh",
     "wasm-pack": "wasm-pack build --target web --out-name index",
-    "fix-pkg": "rm -f pkg/package.json",
+    "fix-pkg": "rm -f pkg/package.json pkg/.gitignore pkg/README.md",
     "test": "bash misc/test.sh"
   },
   "devDependencies": {

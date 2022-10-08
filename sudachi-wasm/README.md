@@ -15,7 +15,7 @@ node bin/index.js 検索は次の言語でもご利用いただけます
 
 # release
 npm run build:release
-npm run publish
+npm publish --access public
 ```
 
 <details>

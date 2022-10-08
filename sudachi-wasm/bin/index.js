@@ -12,7 +12,7 @@ async function main() {
   const [input, dictionaryPath] = process.argv.slice(2);
   if (!input) {
     console.error(
-      "usage: npx sudachi-wasm <japanese-sentence> (<dictionary-file>)"
+      "usage: sudachi.wasm <japanese-sentence> (<dictionary-file>)"
     );
     process.exit(1);
   }
