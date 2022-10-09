@@ -1,10 +1,11 @@
 {
   "type": "module",
   "scripts": {
-    "dev": "run-p vite:dev tsc:dev",
-    "build": "run-s vite:build",
-    "vite:dev": "vite --no-clearScreen",
-    "vite:build": "vite build --outDir build",
+    "dev": "run-p rakkas:dev tsc:dev",
+    "build": "run-s rakkas:build",
+    "preview": "python -m http.server -d ./dist/client",
+    "rakkas:dev": "rakkas --no-clearScreen --port 3434",
+    "rakkas:build": "rakkas build",
     "tsc": "tsc",
     "tsc:dev": "tsc --noEmit --watch --preserveWatchOutput"
   },
@@ -13,7 +14,7 @@
     "@tanstack/react-query": "^4.8.0",
     "@tanstack/react-query-devtools": "^4.8.0",
     "lodash": "^4.17.21",
-    "rakkasjs": "^0.6.1",
+    "rakkasjs": "next",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.36.1",

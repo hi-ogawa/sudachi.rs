@@ -1,5 +1,5 @@
 import type { Morpheme } from "@hiogawa/sudachi.wasm";
-import { isEqual, last, zip } from "lodash";
+import _ from "lodash"; // TODO: rakkas pre-rendering fails when named import...
 import { tinyassert } from "./tinyassert";
 
 export function segment(morphemes: Morpheme[]): Morpheme[][] {
@@ -7,11 +7,14 @@ export function segment(morphemes: Morpheme[]): Morpheme[][] {
     return [];
   }
   const result: Morpheme[][] = [morphemes.slice(0, 1)];
-  for (const [prev, curr] of zip(morphemes.slice(0, -1), morphemes.slice(1))) {
+  for (const [prev, curr] of _.zip(
+    morphemes.slice(0, -1),
+    morphemes.slice(1)
+  )) {
     tinyassert(prev);
     tinyassert(curr);
     if (checkDependency(prev, curr)) {
-      last(result)?.push(curr);
+      _.last(result)?.push(curr);
     } else {
       result.push([curr]);
     }
@@ -47,6 +50,6 @@ function checkBackward(t: Morpheme): boolean {
 
 function checkPair(t1: Morpheme, t2: Morpheme): boolean {
   return POS_PAIRS.some((pair) =>
-    isEqual(pair, [t1.part_of_speech[0], t2.part_of_speech[0]])
+    _.isEqual(pair, [t1.part_of_speech[0], t2.part_of_speech[0]])
   );
 }

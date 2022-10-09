@@ -32,7 +32,7 @@ importers:
       '@types/react': ^18.0.15
       '@types/react-dom': ^18.0.6
       lodash: ^4.17.21
-      rakkasjs: ^0.6.1
+      rakkasjs: next
       react: ^18.2.0
       react-dom: ^18.2.0
       react-hook-form: ^7.36.1
@@ -45,7 +45,7 @@ importers:
       '@tanstack/react-query': 4.10.3_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-query-devtools': 4.10.3_vhepussragssjkevgznguhxexq
       lodash: 4.17.21
-      rakkasjs: 0.6.1_3mp7zlfxkmj2qijonvcr6z76ju
+      rakkasjs: 0.6.2-next.5_3mp7zlfxkmj2qijonvcr6z76ju
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-hook-form: 7.37.0_react@18.2.0
@@ -508,6 +508,10 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+
+  /@polka/url/1.0.0-next.21:
+    resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
+    dev: false
 
   /@tanstack/match-sorter-utils/8.5.14:
     resolution: {integrity: sha512-lVNhzTcOJ2bZ4IU+PeCPQ36vowBHvviJb2ZfdRFX5uhy7G0jM8N34zAMbmS5ZmVH8D2B7oU82OWo0e/5ZFzQrw==}
@@ -2350,6 +2354,11 @@ packages:
     hasBin: true
     dev: true
 
+  /mrmime/1.0.1:
+    resolution: {integrity: sha512-hzzEagAgDyoU1Q6yg5uI+AorQgdvMCur3FcKf7NhMKWsaYg+RnbTyHRa/9IlLF9rf455MOCtcqqrQQ83pPP7Uw==}
+    engines: {node: '>=10'}
+    dev: false
+
   /ms/2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
     dev: true
@@ -2579,8 +2588,8 @@ packages:
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
-  /rakkasjs/0.6.1_3mp7zlfxkmj2qijonvcr6z76ju:
-    resolution: {integrity: sha512-Pz2DzMuIEW+JmfkLSGwvOOlaZOnapRBf2MdwekI7bR4Sdrs31P1BIwy987dzoReyie61a1kBV76NNVacDjwNgg==}
+  /rakkasjs/0.6.2-next.5_3mp7zlfxkmj2qijonvcr6z76ju:
+    resolution: {integrity: sha512-j8ZL8v4Wg8Hi7y3r/ZzowXWz7m/qIZcOOSmx5dzvRhNhRSVhujXncDo6Se5o+QCxp63JPRLTmqgadmuUS3B/KA==}
     hasBin: true
     peerDependencies:
       react: '18'
@@ -2612,6 +2621,7 @@ packages:
       picocolors: 1.0.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
+      sirv: 2.0.2
       vite: 3.1.6
     transitivePeerDependencies:
       - supports-color
@@ -2808,6 +2818,15 @@ packages:
       object-inspect: 1.12.2
     dev: true
 
+  /sirv/2.0.2:
+    resolution: {integrity: sha512-4Qog6aE29nIjAOKe/wowFTxOdmbEZKb+3tsLljaBRzJwtqto0BChD2zzH0LhgCSXiI+V7X+Y45v14wBZQ1TK3w==}
+    engines: {node: '>= 10'}
+    dependencies:
+      '@polka/url': 1.0.0-next.21
+      mrmime: 1.0.1
+      totalist: 3.0.0
+    dev: false
+
   /slash/3.0.0:
     resolution: {integrity: sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==}
     engines: {node: '>=8'}
@@ -2934,6 +2953,11 @@ packages:
     engines: {node: '>=8.0'}
     dependencies:
       is-number: 7.0.0
+
+  /totalist/3.0.0:
+    resolution: {integrity: sha512-eM+pCBxXO/njtF7vdFsHuqb+ElbxqtI4r5EAvk6grfAFyJ6IvWlSkfZ5T9ozC6xWw3Fj1fGoSmrl0gUs46JVIw==}
+    engines: {node: '>=6'}
+    dev: false
 
   /tsconfig-paths/3.14.1:
     resolution: {integrity: sha512-fxDhWnFSLt3VuTwtvJt5fpwxBHg5AdKWMsgcPOOIilyjymcYVZoCQF8fvFRezCNfblEXmi+PcM1eYHeOAgXCOQ==}

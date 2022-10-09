@@ -6,4 +6,5 @@ module.exports = {
     "import/order": ["error", { alphabetize: { order: "asc" } }],
     "sort-imports": ["error", { ignoreDeclarationSort: true }],
   },
+  ignorePatterns: ["dist", "build"],
 };
