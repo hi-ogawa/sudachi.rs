@@ -40,6 +40,6 @@ jobs:
       # test
       - run: npm -C sudachi-wasm run test
       # web
-      - run: npm -C sudachi-wasm run lint
+      - run: npm -C sudachi-wasm run lint:check
       - run: npm -C sudachi-wasm/packages/web run tsc
       - run: npm -C sudachi-wasm/packages/web run build
