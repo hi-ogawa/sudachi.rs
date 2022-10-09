@@ -25,6 +25,7 @@ importers:
   packages/web:
     specifiers:
       '@hiogawa/sudachi.wasm': workspace:*
+      '@hiogawa/zip.wasm': ^1.0.1
       '@tanstack/react-query': ^4.8.0
       '@tanstack/react-query-devtools': ^4.8.0
       '@tsconfig/strictest': ^1.0.2
@@ -42,6 +43,7 @@ importers:
       vite-plugin-windicss: ^1.8.8
     dependencies:
       '@hiogawa/sudachi.wasm': link:../..
+      '@hiogawa/zip.wasm': 1.0.1
       '@tanstack/react-query': 4.10.3_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-query-devtools': 4.10.3_vhepussragssjkevgznguhxexq
       lodash: 4.17.21
@@ -431,6 +433,11 @@ packages:
     dependencies:
       '@hattip/core': 0.0.17
       node-fetch-native: 0.1.7
+    dev: false
+
+  /@hiogawa/zip.wasm/1.0.1:
+    resolution: {integrity: sha512-4Mnwq40UzdB6/roTc4twxj0IsugC2llpwXn5gQqbqBHewTAVNYLT6LrQEnN14w1xDPofKSgXfNngMe4aDWKprQ==}
+    hasBin: true
     dev: false
 
   /@humanwhocodes/config-array/0.10.7:

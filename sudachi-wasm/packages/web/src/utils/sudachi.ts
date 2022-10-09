@@ -1,16 +1,19 @@
-import initSudachiWasm, * as sudachiWasm from "@hiogawa/sudachi.wasm";
-import SUDACHI_WASM_URL from "@hiogawa/sudachi.wasm/pkg/index_bg.wasm?url";
+import init, * as lib from "@hiogawa/sudachi.wasm";
+import WASM_URL from "@hiogawa/sudachi.wasm/pkg/index_bg.wasm?url";
 import { QueryObserverOptions, useQuery } from "@tanstack/react-query";
+import _ from "lodash";
 
-export function useSudachiWasm(
-  options?: QueryObserverOptions<typeof sudachiWasm>
-) {
+export const initSudachiWasm = _.memoize(initSudachiWasmImpl);
+
+async function initSudachiWasmImpl() {
+  await init(WASM_URL);
+  return lib;
+}
+
+export function useSudachiWasm(options?: QueryObserverOptions<typeof lib>) {
   return useQuery({
     queryKey: [useSudachiWasm.name],
-    queryFn: async () => {
-      await initSudachiWasm(SUDACHI_WASM_URL);
-      return sudachiWasm;
-    },
+    queryFn: initSudachiWasm,
     staleTime: Infinity,
     ...options,
   });

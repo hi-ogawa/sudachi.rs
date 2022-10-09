@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { Icon } from "../components/icon";
 import { segment } from "../utils/segment";
 import { useSudachiWasm } from "../utils/sudachi";
+import { initZipWasm } from "../utils/zip";
 
 export default function PageComponent() {
   //
@@ -24,32 +25,19 @@ export default function PageComponent() {
   //
   // dictionary data
   //
-  const [dictionary, setDictionary] = React.useState<{
-    name: string;
-    data: Uint8Array;
-  }>();
-
-  // TODO: no async
-  async function loadDictionary(file: File) {
-    if (file.name.endsWith(".dic")) {
-      const buffer = await file.arrayBuffer();
-      setDictionary({
-        name: file.name,
-        data: new Uint8Array(buffer),
-      });
-      return;
-    }
-    if (file.name.endsWith(".zip")) {
-      // TODO: support zip file
-      toast.error(`please extract .dic file from .zip file: ${file.name}`);
-      return;
-    }
-    toast.error(`unsupported dictionary file: ${file.name}`);
-  }
+  const [dictionary, setDictionary] = React.useState<Uint8Array>();
 
   React.useEffect(() => {
     if (file) {
-      loadDictionary(file);
+      // TODO: no async effect
+      (async () => {
+        try {
+          const data = await loadDictionaryData(file);
+          setDictionary(data);
+        } catch {
+          toast.error(`failed to load dictionary`);
+        }
+      })();
     } else {
       setDictionary(undefined);
     }
@@ -68,7 +56,7 @@ export default function PageComponent() {
 
   React.useEffect(() => {
     if (dictionary && sudachiWasm) {
-      const tokenizer = sudachiWasm.Tokenizer.create(dictionary.data);
+      const tokenizer = sudachiWasm.Tokenizer.create(dictionary);
       setTokenizer(tokenizer);
       return () => {
         tokenizer.free();
@@ -264,8 +252,8 @@ export default function PageComponent() {
             )}
             {morphemes.length > 0 && (
               <tbody>
-                {morphemes.map((m) => (
-                  <tr key={JSON.stringify(m)} className="border-t">
+                {morphemes.map((m, i) => (
+                  <tr key={JSON.stringify({ i, m })} className="border-t">
                     <td className="px-2 py-1">{m.surface}</td>
                     <td className="px-2 py-1">
                       {m.part_of_speech.filter((p) => p !== "*").join(", ")}
@@ -303,6 +291,35 @@ const EXAMPLES = [
 
 function cls(...args: any): string {
   return args.filter(Boolean).join(" ");
+}
+
+async function loadDictionaryData(file: File): Promise<Uint8Array> {
+  const fileData = new Uint8Array(await file.arrayBuffer());
+  if (file.name.endsWith(".dic")) {
+    return fileData;
+  }
+  if (file.name.endsWith(".zip")) {
+    const zipWasm = await initZipWasm();
+    const { entries } = zipWasm.read_metadata(fileData) as ZipMetadata;
+    const index = entries.findIndex((e) => e.file_name.endsWith(".dic"));
+    const entry = entries[index];
+    if (entry) {
+      const dictData = new Uint8Array(entry.uncompressed_size);
+      zipWasm.extract_by_index(fileData, index, dictData);
+      return dictData;
+    }
+  }
+  throw new Error("unsuppored file extension");
+}
+
+// TODO: add typing in https://github.com/hi-ogawa/zip/blob/e9b607dda08f4786ef6e776647444fe665f7ef83/wasm/src/lib.rs#L33-L44
+interface ZipMetadata {
+  entries: {
+    file_name: string;
+    uncompressed_size: number;
+    compressed_size: number;
+    compression_method: string;
+  }[];
 }
 
 // @ts-ignore allow unused
