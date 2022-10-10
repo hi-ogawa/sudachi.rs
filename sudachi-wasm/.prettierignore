@@ -1,5 +1,7 @@
 node_modules
 pkg
 misc/data
+build
 dist
-*.tgz
+pnpm-lock.yaml
+.vercel

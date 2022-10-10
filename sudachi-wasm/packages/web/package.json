@@ -1,0 +1,37 @@
+{
+  "type": "module",
+  "scripts": {
+    "dev": "run-p rakkas:dev tsc:dev",
+    "build": "run-s rakkas:build fix-vercel",
+    "preview": "python -m http.server -d ./dist/client",
+    "rakkas:dev": "rakkas --no-clearScreen --port 3434",
+    "rakkas:build": "rakkas build",
+    "tsc": "tsc",
+    "tsc:dev": "tsc --noEmit --watch --preserveWatchOutput",
+    "fix-vercel": "cp -f misc/vercel/config.json .vercel/output/config.json && rm -rf .vercel/output/functions",
+    "generate-favicon": "curl -sf https://raw.githubusercontent.com/WorksApplications/Sudachi/develop/docs/Sudachi.png | convert -resize 32x32 -background none - public/favicon.ico",
+    "release": "vercel deploy --prebuilt .",
+    "release:production": "vercel deploy --prebuilt . --prod"
+  },
+  "dependencies": {
+    "@hiogawa/sudachi.wasm": "workspace:*",
+    "@hiogawa/zip.wasm": "^1.0.1",
+    "@tanstack/react-query": "^4.8.0",
+    "@tanstack/react-query-devtools": "^4.8.0",
+    "lodash": "^4.17.21",
+    "rakkasjs": "next",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.36.1",
+    "react-hot-toast": "^2.4.0"
+  },
+  "devDependencies": {
+    "@tsconfig/strictest": "^1.0.2",
+    "@types/lodash": "^4.14.186",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "remixicon": "^2.5.0",
+    "vite": "^3.1.3",
+    "vite-plugin-windicss": "^1.8.8"
+  }
+}

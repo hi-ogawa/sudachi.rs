@@ -1,0 +1,5 @@
+html,
+body,
+#root {
+  @apply h-full bg-gray-50;
+}
