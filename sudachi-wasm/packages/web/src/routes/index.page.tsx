@@ -1,11 +1,14 @@
-import type { Morpheme, Tokenizer } from "@hiogawa/sudachi.wasm";
+import type { Morpheme } from "@hiogawa/sudachi.wasm";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Icon } from "../components/icon";
+import { Spinner } from "../components/spinner";
 import { segment } from "../utils/segment";
-import { useSudachiWasm } from "../utils/sudachi";
-import { initZipWasm } from "../utils/zip";
+import {
+  useLoadDictionary,
+  useTokenize,
+} from "../utils/tokenizer-worker-client";
 
 export default function PageComponent() {
   //
@@ -23,64 +26,48 @@ export default function PageComponent() {
   const file = React.useMemo(() => fileList?.[0], [fileList]);
 
   //
-  // dictionary data
+  // tokenizer-worker
   //
-  const [dictionary, setDictionary] = React.useState<Uint8Array>();
 
-  React.useEffect(() => {
-    if (file) {
-      // TODO: no async effect
-      (async () => {
-        try {
-          const data = await loadDictionaryData(file);
-          setDictionary(data);
-        } catch {
-          toast.error(`failed to load dictionary`);
-        }
-      })();
-    } else {
-      setDictionary(undefined);
-    }
-  }, [file]);
-
-  //
-  // sudachi setup
-  //
-  const querySudachiWasm = useSudachiWasm({
-    onError: () => {
-      toast.error("failed to load sudachi.wassm. please try it again later.");
-    },
-  });
-  const sudachiWasm = querySudachiWasm.data;
-  const [tokenizer, setTokenizer] = React.useState<Tokenizer>();
-
-  React.useEffect(() => {
-    if (dictionary && sudachiWasm) {
-      const tokenizer = sudachiWasm.Tokenizer.create(dictionary);
-      setTokenizer(tokenizer);
-      return () => {
-        tokenizer.free();
-        setTokenizer(undefined);
-      };
-    }
-    return;
-  }, [dictionary, sudachiWasm]);
-
-  //
-  // tokenize
-  //
   const [morphemes, setMorphemes] = React.useState<Morpheme[]>([]);
   const segments = React.useMemo(() => segment(morphemes), [morphemes]);
 
-  function runTokenizer(source: string) {
-    if (tokenizer) {
-      source = source.replaceAll(/\s/g, " ").trim(); // normalize white space since new lines would break sudachi
-      const result = tokenizer.run(source);
-      setMorphemes(result);
+  const mutationLoadDictionary = useLoadDictionary({
+    onSuccess: () => {
+      toast.success(`successfuly loaded dictionary`, {
+        id: `${useLoadDictionary.name}:success`,
+      });
+    },
+    onError: () => {
+      toast.error(`failed to load dictionary`, {
+        id: `${useLoadDictionary.name}:error`,
+      });
+    },
+  });
+
+  const mutationTokenize = useTokenize({
+    onSuccess: (data) => {
+      setMorphemes(data);
+    },
+    onError: () => {
+      toast.error(`failed to tokenize input`);
+    },
+  });
+
+  React.useEffect(() => {
+    if (file) {
+      mutationLoadDictionary.mutate(file);
+    } else {
+      mutationLoadDictionary.reset();
     }
+  }, [file]);
+
+  function runTokenizer(source: string) {
+    source = source.replaceAll(/\s/g, " ").trim(); // normalize white space since new lines would break sudachi
+    mutationTokenize.mutate(source);
   }
 
-  const disabled = !querySudachiWasm.isSuccess || !tokenizer;
+  const disabled = !mutationLoadDictionary.isSuccess;
 
   return (
     <div className="h-full flex flex-col items-center">
@@ -118,7 +105,7 @@ export default function PageComponent() {
             className={cls(
               "h-[50px] bg-gray-100 border border-dashed border-gray-300 rounded flex justify-center items-center text-sm filter transition duration-200 relative",
               isDroppingFile ? "border-blue-500" : "border-gray-300",
-              !dictionary && "hover:brightness-[0.97] cursor-pointer"
+              !file && "hover:brightness-[0.97] cursor-pointer"
             )}
             onDragEnter={(e) => {
               e.stopPropagation();
@@ -162,19 +149,32 @@ export default function PageComponent() {
             )}
             {file && (
               <>
-                <span className="text-gray-700">
+                <span
+                  className={cls(
+                    mutationLoadDictionary.isError
+                      ? "text-red-600"
+                      : "text-gray-700"
+                  )}
+                >
                   {file.name} ({Math.ceil(file.size / 2 ** 20)} MB)
                 </span>
-                <button
-                  className="absolute right-3 fill-gray-400 hover:fill-gray-700 transition duration-300"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    form.setValue("fileList", undefined);
-                  }}
-                >
-                  <Icon name="System/close-circle-line" className="w-5 h-5" />
-                </button>
+                {mutationLoadDictionary.isLoading && (
+                  <span className="absolute right-3">
+                    <Spinner size="1rem" />
+                  </span>
+                )}
+                {!mutationLoadDictionary.isLoading && (
+                  <button
+                    className="absolute right-3 fill-gray-400 hover:fill-gray-700 transition duration-300"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      form.setValue("fileList", undefined);
+                    }}
+                  >
+                    <Icon name="System/close-circle-line" className="w-5 h-5" />
+                  </button>
+                )}
               </>
             )}
           </label>
@@ -291,35 +291,6 @@ const EXAMPLES = [
 
 function cls(...args: any): string {
   return args.filter(Boolean).join(" ");
-}
-
-async function loadDictionaryData(file: File): Promise<Uint8Array> {
-  const fileData = new Uint8Array(await file.arrayBuffer());
-  if (file.name.endsWith(".dic")) {
-    return fileData;
-  }
-  if (file.name.endsWith(".zip")) {
-    const zipWasm = await initZipWasm();
-    const { entries } = zipWasm.read_metadata(fileData) as ZipMetadata;
-    const index = entries.findIndex((e) => e.file_name.endsWith(".dic"));
-    const entry = entries[index];
-    if (entry) {
-      const dictData = new Uint8Array(entry.uncompressed_size);
-      zipWasm.extract_by_index(fileData, index, dictData);
-      return dictData;
-    }
-  }
-  throw new Error("unsuppored file extension");
-}
-
-// TODO: add typing in https://github.com/hi-ogawa/zip/blob/e9b607dda08f4786ef6e776647444fe665f7ef83/wasm/src/lib.rs#L33-L44
-interface ZipMetadata {
-  entries: {
-    file_name: string;
-    uncompressed_size: number;
-    compressed_size: number;
-    compression_method: string;
-  }[];
 }
 
 // @ts-ignore allow unused
