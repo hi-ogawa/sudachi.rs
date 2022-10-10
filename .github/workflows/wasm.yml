@@ -35,7 +35,7 @@ jobs:
           key: ${{ runner.os }}-cargo-wasm-${{ hashFiles('Cargo.lock') }}
       # build
       - run: pnpm -C sudachi-wasm i --frozen-lockfile
-      - run: npm -C sudachi-wasm run setup
-      - run: npm -C sudachi-wasm run build:release
+      - run: npm -C sudachi-wasm run build
       # test
-      - run: npm -C sudachi-wasm run test
+      - run: npm -C sudachi-wasm/packages/cli run build
+      - run: npm -C sudachi-wasm/packages/cli run test
