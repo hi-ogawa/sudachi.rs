@@ -1,6 +1,6 @@
 {
   "name": "@hiogawa/sudachi.wasm.cli",
-  "version": "1.0.0-pre.3",
+  "version": "1.0.1",
   "type": "module",
   "bin": "./bin/index.js",
   "files": [
@@ -15,7 +15,8 @@
   },
   "scripts": {
     "build": "mkdir -p data && cd data && wget -c http://sudachi.s3-website-ap-northeast-1.amazonaws.com/sudachidict/sudachi-dictionary-20220729-small.zip && unzip -o sudachi-dictionary-20220729-small.zip",
-    "test": "vitest run"
+    "test": "vitest run",
+    "release": "pnpm publish --access public"
   },
   "dependencies": {
     "@hiogawa/sudachi.wasm": "workspace:*"

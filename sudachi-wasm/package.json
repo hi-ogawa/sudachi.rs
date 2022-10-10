@@ -1,6 +1,6 @@
 {
   "name": "@hiogawa/sudachi.wasm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "./pkg/index.js",
   "types": "./pkg/index.d.ts",
@@ -19,7 +19,8 @@
     "build": "      npm run wasm-pack                                      && npm run fix-pkg",
     "build:embed": "npm run wasm-pack -- --features embed_dictionary       && npm run fix-pkg",
     "wasm-pack": "wasm-pack build --target web --out-name index",
-    "fix-pkg": "rm -f pkg/package.json pkg/.gitignore pkg/README.md"
+    "fix-pkg": "rm -f pkg/package.json pkg/.gitignore pkg/README.md",
+    "release": "npm publish --access public"
   },
   "devDependencies": {
     "wasm-pack": "^0.10.3"

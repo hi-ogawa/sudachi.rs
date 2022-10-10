@@ -13,5 +13,5 @@ SUDACHI_WASM_EMBED_DICTIONARY="$PWD/packages/cli/data/sudachi-dictionary-2022072
 
 # release
 npm run build
-npm publish --access public
+npm run release
 ```

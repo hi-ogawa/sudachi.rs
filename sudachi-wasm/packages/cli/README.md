@@ -8,7 +8,7 @@ npm run build
 node ./bin/index.js 検索は次の言語でもご利用いただけます
 
 # release
-pnpm publish --access public
+npm run release
 ```
 
 <details>
