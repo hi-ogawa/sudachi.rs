@@ -29,8 +29,9 @@ FROM stage_cargo_chef as stage_build
 COPY --from=stage_prepare /app/recipe.json ./
 RUN cargo chef cook --release --recipe-path recipe.json
 
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm i --frozen-lockfile
+COPY sudachi-napi/package.json sudachi-napi/pnpm-lock.yaml ./sudachi-napi/
+RUN pnpm -C sudachi-napi i --frozen-lockfile
 
 COPY ./ ./
+WORKDIR sudachi-napi
 RUN npm run napi

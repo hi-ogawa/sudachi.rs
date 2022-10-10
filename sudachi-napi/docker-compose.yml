@@ -1,4 +1,5 @@
 services:
   napi-rs:
     build:
-      context: ./
+      context: ../
+      dockerfile: sudachi-napi/Dockerfile
