@@ -49,5 +49,5 @@ jobs:
           path: ~/.cache/ms-playwright
           key: cache-playwright-1.19.2
       - if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: npx playwright install chromium --with-deps
+        run: npx -C sudachi-wasm/packages/web playwright install chromium --with-deps
       - run: npm -C sudachi-wasm/packages/web run test-e2e
