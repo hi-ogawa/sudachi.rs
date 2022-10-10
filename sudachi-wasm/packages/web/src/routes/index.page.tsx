@@ -83,8 +83,8 @@ export default function PageComponent() {
   const disabled = !querySudachiWasm.isSuccess || !tokenizer;
 
   return (
-    <div className="h-full flex flex-col items-center p-6">
-      <div className="w-2xl max-w-full flex flex-col gap-4">
+    <div className="h-full flex flex-col items-center">
+      <div className="w-2xl max-w-full flex flex-col gap-4 p-4">
         <div className="flex items-center gap-2 mb-3">
           <h1 className="text-xl">sudachi.wasm</h1>
           <a
