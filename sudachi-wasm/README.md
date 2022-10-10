@@ -2,6 +2,7 @@
 
 - [`sudachi-wasm`](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm) (npm [@hiogawa/sudachi.wasm](https://www.npmjs.com/package/@hiogawa/sudachi.wasm))
 - [`sudachi-wasm/packages/cli`](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm/packages/cli) (npm [@hiogawa/sudachi.wasm.cli](https://www.npmjs.com/package/@hiogawa/sudachi.wasm.cli))
+- [`sudachi-wasm/packages/web`](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm/packages/web) (https://sudachi-wasm-hiro18181.vercel.app/)
 
 ```sh
 # build
@@ -15,3 +16,7 @@ SUDACHI_WASM_EMBED_DICTIONARY="$PWD/packages/cli/data/sudachi-dictionary-2022072
 npm run build
 npm run release
 ```
+
+## todo
+
+- [ ] move napi binding from https://github.com/hi-ogawa/japanese-line-break-segmenter/tree/master/sudachi.js

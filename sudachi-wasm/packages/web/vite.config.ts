@@ -7,6 +7,7 @@ export default defineConfig({
   plugins: [
     windicss(),
     rakkas({
+      adapter: "vercel",
       prerender: ["/"],
     }),
   ],
