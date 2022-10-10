@@ -1,12 +1,12 @@
 # cli
 
 ```sh
-# build
-npm run download-dictionary
+# build (download dictionary)
+npm run build
 
 # example
 node ./bin/index.js 検索は次の言語でもご利用いただけます
 
 # release
-npm publish --access public
+pnpm publish --access public
 ```
