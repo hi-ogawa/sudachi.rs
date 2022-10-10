@@ -1,6 +1,0 @@
-services:
-  napi-rs:
-    image: sudachi-napi-build # name image for caching on ci
-    build:
-      context: .
-      dockerfile: sudachi-napi/Dockerfile
