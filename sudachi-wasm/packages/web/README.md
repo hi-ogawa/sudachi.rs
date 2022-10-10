@@ -13,3 +13,8 @@ vercel link -p sudachi-wasm-hiro18181
 npm run build
 npm run release:production
 ```
+
+## todo
+
+- [ ] run wasm in worker to avoid blocking UI
+  - https://github.com/GoogleChromeLabs/comlink
