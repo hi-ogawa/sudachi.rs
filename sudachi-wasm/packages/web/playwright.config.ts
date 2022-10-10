@@ -6,8 +6,6 @@ const config: PlaywrightTestConfig = {
   testDir: "./src/e2e",
   use: {
     baseURL: "http://localhost:" + PORT,
-    actionTimeout: 5_000,
-    navigationTimeout: 5_000,
     // TODO: this makes tests extremely slow and flaky
     // trace: "on",
   },
