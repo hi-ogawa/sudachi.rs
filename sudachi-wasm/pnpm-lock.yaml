@@ -35,6 +35,7 @@ importers:
     specifiers:
       '@hiogawa/sudachi.wasm': workspace:*
       '@hiogawa/zip.wasm': 1.0.2
+      '@playwright/test': ^1.27.0
       '@tanstack/react-query': ^4.8.0
       '@tanstack/react-query-devtools': ^4.8.0
       '@tsconfig/strictest': ^1.0.2
@@ -64,6 +65,7 @@ importers:
       react-hook-form: 7.37.0_react@18.2.0
       react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
     devDependencies:
+      '@playwright/test': 1.27.0
       '@tsconfig/strictest': 1.0.2
       '@types/lodash': 4.14.186
       '@types/react': 18.0.21
@@ -526,6 +528,15 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+
+  /@playwright/test/1.27.0:
+    resolution: {integrity: sha512-L4BswoJvGkFsEHhEgzVNHBnkFB1FbnBQn3QmvTl7+AouoJQ4a8tLwZKvytdovCsNi7B5cXuRo58yGvfM5PnExw==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      '@types/node': 18.8.3
+      playwright-core: 1.27.0
+    dev: true
 
   /@polka/url/1.0.0-next.21:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
@@ -2637,6 +2648,12 @@ packages:
   /pify/3.0.0:
     resolution: {integrity: sha512-C3FsVNH1udSEX48gGX1xfvwTWfsYWj5U+8/uK15BGzIGrKoUpghX8hWZwa/OFnakBiiVNmBvemTJR5mcy7iPcg==}
     engines: {node: '>=4'}
+    dev: true
+
+  /playwright-core/1.27.0:
+    resolution: {integrity: sha512-VBKaaFUVKDo3akW+o4DwbK1ZyXh46tcSwQKPK3lruh8IJd5feu55XVZx4vOkbb2uqrNdIF51sgsadYT533SdpA==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /postcss/8.4.17:

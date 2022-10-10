@@ -2,12 +2,15 @@
   "type": "module",
   "scripts": {
     "dev": "run-p rakkas:dev tsc:dev",
+    "dev:e2e": "run-p rakkas:dev:e2e",
     "build": "run-s rakkas:build fix-vercel",
     "preview": "python -m http.server -d ./dist/client",
     "rakkas:dev": "rakkas --no-clearScreen --port 3434",
+    "rakkas:dev:e2e": "rakkas --no-clearScreen --port 3435",
     "rakkas:build": "rakkas build",
     "tsc": "tsc",
     "tsc:dev": "tsc --noEmit --watch --preserveWatchOutput",
+    "test-e2e": "playwright test",
     "fix-vercel": "cp -f misc/vercel/config.json .vercel/output/config.json && rm -rf .vercel/output/functions",
     "generate-favicon": "curl -sf https://raw.githubusercontent.com/WorksApplications/Sudachi/develop/docs/Sudachi.png | convert -resize 32x32 -background none - public/favicon.ico",
     "release": "vercel deploy --prebuilt .",
@@ -27,6 +30,7 @@
     "react-hot-toast": "^2.4.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.27.0",
     "@tsconfig/strictest": "^1.0.2",
     "@types/lodash": "^4.14.186",
     "@types/react": "^18.0.15",

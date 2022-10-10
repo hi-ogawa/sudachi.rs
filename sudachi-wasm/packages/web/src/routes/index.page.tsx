@@ -102,6 +102,7 @@ export default function PageComponent() {
           {/* https://developer.mozilla.org/en-US/docs/Web/API/File_API/Using_files_from_web_applications#selecting_files_using_drag_and_drop */}
           {/* https://github.com/react-dropzone/react-dropzone/blob/81277590a45e8bbba32e544ba2ecbfa02284d916/src/index.js */}
           <label
+            htmlFor="input-dictionary-file"
             className={cls(
               "h-[50px] bg-gray-100 border border-dashed border-gray-300 rounded flex justify-center items-center text-sm filter transition duration-200 relative",
               isDroppingFile ? "border-blue-500" : "border-gray-300",
@@ -137,6 +138,7 @@ export default function PageComponent() {
           >
             <input
               type="file"
+              id="input-dictionary-file"
               className="hidden"
               disabled={Boolean(file)}
               {...form.register("fileList")}
@@ -184,6 +186,7 @@ export default function PageComponent() {
             <label>Input</label>
             <span className="flex-1"></span>
             <select
+              data-test="select-example"
               disabled={disabled}
               className="border border-gray-300 px-1"
               defaultValue=""
@@ -205,6 +208,7 @@ export default function PageComponent() {
           </div>
           <div className="flex flex-col relative">
             <textarea
+              data-test="textarea-sentence"
               disabled={disabled}
               className="p-1 border"
               rows={3}
@@ -269,7 +273,10 @@ export default function PageComponent() {
           <div className="flex items-center">
             <label>Line-Break Segmentation</label>
           </div>
-          <pre className="p-1 border bg-white min-h-10">
+          <pre
+            className="p-1 border bg-white min-h-10"
+            data-test="output-line-break-segmentation"
+          >
             {segments
               .map((segment) => segment.map((m) => m.surface).join(""))
               .join("\n")}
