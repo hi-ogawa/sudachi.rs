@@ -1,7 +1,7 @@
 # sudachi-wasm
 
-- [sudachi-wasm](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm) https://www.npmjs.com/package/@hiogawa/sudachi.wasm
-- [sudachi-wasm/packages/cli](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm/packages/cli) https://www.npmjs.com/package/@hiogawa/sudachi.wasm.cli
+- [`sudachi-wasm`](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm) (npm [@hiogawa/sudachi.wasm](https://www.npmjs.com/package/@hiogawa/sudachi.wasm))
+- [`sudachi-wasm/packages/cli`](https://github.com/hi-ogawa/sudachi.rs/tree/develop-js/sudachi-wasm/packages/cli) (npm [@hiogawa/sudachi.wasm.cli](https://www.npmjs.com/package/@hiogawa/sudachi.wasm.cli))
 
 ```sh
 # build
