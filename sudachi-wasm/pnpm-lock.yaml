@@ -34,13 +34,14 @@ importers:
   packages/web:
     specifiers:
       '@hiogawa/sudachi.wasm': workspace:*
-      '@hiogawa/zip.wasm': ^1.0.1
+      '@hiogawa/zip.wasm': 1.0.2
       '@tanstack/react-query': ^4.8.0
       '@tanstack/react-query-devtools': ^4.8.0
       '@tsconfig/strictest': ^1.0.2
       '@types/lodash': ^4.14.186
       '@types/react': ^18.0.15
       '@types/react-dom': ^18.0.6
+      comlink: ^4.3.1
       lodash: ^4.17.21
       rakkasjs: next
       react: ^18.2.0
@@ -52,9 +53,10 @@ importers:
       vite-plugin-windicss: ^1.8.8
     dependencies:
       '@hiogawa/sudachi.wasm': link:../..
-      '@hiogawa/zip.wasm': 1.0.1
+      '@hiogawa/zip.wasm': 1.0.2
       '@tanstack/react-query': 4.10.3_biqbaboplfbrettd7655fr4n2y
       '@tanstack/react-query-devtools': 4.10.3_vhepussragssjkevgznguhxexq
+      comlink: 4.3.1
       lodash: 4.17.21
       rakkasjs: 0.6.2-next.5_3mp7zlfxkmj2qijonvcr6z76ju
       react: 18.2.0
@@ -444,8 +446,8 @@ packages:
       node-fetch-native: 0.1.7
     dev: false
 
-  /@hiogawa/zip.wasm/1.0.1:
-    resolution: {integrity: sha512-4Mnwq40UzdB6/roTc4twxj0IsugC2llpwXn5gQqbqBHewTAVNYLT6LrQEnN14w1xDPofKSgXfNngMe4aDWKprQ==}
+  /@hiogawa/zip.wasm/1.0.2:
+    resolution: {integrity: sha512-vdtvQx8kur7Sc8UA1pokKsqAzhSqjvN+s82V8vqcTmc9V2Cn0GvCFjxlBoTcsH52L0rVoY2Z94E5bC2dbNZ3iQ==}
     hasBin: true
     dev: false
 
@@ -1041,6 +1043,10 @@ packages:
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
     dev: true
+
+  /comlink/4.3.1:
+    resolution: {integrity: sha512-+YbhUdNrpBZggBAHWcgQMLPLH1KDF3wJpeqrCKieWQ8RL7atmgsgTQko1XEBK6PsecfopWNntopJ+ByYG1lRaA==}
+    dev: false
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}

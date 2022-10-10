@@ -4,6 +4,9 @@ import windicss from "vite-plugin-windicss";
 
 export default defineConfig({
   base: "./",
+  build: {
+    sourcemap: true,
+  },
   plugins: [
     windicss(),
     rakkas({
