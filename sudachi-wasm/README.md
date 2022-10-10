@@ -18,7 +18,7 @@ SUDACHI_WASM_EMBED_DICTIONARY="$PWD/misc/data/sudachi-dictionary-20220729/system
 node bin/index.js 検索は次の言語でもご利用いただけます
 
 # release
-npm run build:release
+npm run build
 npm publish --access public
 ```
 
