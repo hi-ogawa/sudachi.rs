@@ -38,7 +38,7 @@ async function loadDictionaryData(file: File): Promise<Uint8Array> {
     return fileData;
   }
   if (file.name.endsWith(".zip")) {
-    const { entries } = read_metadata(fileData) as ZipMetadata;
+    const { entries } = read_metadata(fileData);
     const index = entries.findIndex((e) => e.file_name.endsWith(".dic"));
     const entry = entries[index];
     if (entry) {
@@ -48,16 +48,6 @@ async function loadDictionaryData(file: File): Promise<Uint8Array> {
     }
   }
   throw new Error("unsuppored file extension");
-}
-
-// TODO: add typing in https://github.com/hi-ogawa/zip/blob/e9b607dda08f4786ef6e776647444fe665f7ef83/wasm/src/lib.rs#L33-L44
-interface ZipMetadata {
-  entries: {
-    file_name: string;
-    uncompressed_size: number;
-    compressed_size: number;
-    compression_method: string;
-  }[];
 }
 
 //
