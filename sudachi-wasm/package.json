@@ -18,10 +18,8 @@
     "dev:embed": "  npm run wasm-pack -- --dev --features embed_dictionary && npm run fix-pkg",
     "build": "      npm run wasm-pack                                      && npm run fix-pkg",
     "build:embed": "npm run wasm-pack -- --features embed_dictionary       && npm run fix-pkg",
-    "setup": "bash misc/download-dictionary.sh",
     "wasm-pack": "wasm-pack build --target web --out-name index",
-    "fix-pkg": "rm -f pkg/package.json pkg/.gitignore pkg/README.md",
-    "test": "bash misc/test.sh"
+    "fix-pkg": "rm -f pkg/package.json pkg/.gitignore pkg/README.md"
   },
   "devDependencies": {
     "wasm-pack": "^0.10.3"
