@@ -18,7 +18,7 @@ jobs:
       - uses: docker/build-push-action@v3
         with:
           # same configuration as docker-compose.yml
-          tags: sudachi-napi-build:latest
+          tags: sudachi-napi-build
           file: sudachi-napi/Dockerfile
           load: true
       - run: npm -C sudachi-napi run build
