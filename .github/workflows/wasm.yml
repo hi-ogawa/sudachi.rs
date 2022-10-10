@@ -43,5 +43,11 @@ jobs:
       # web
       - run: npm -C sudachi-wasm/packages/web run tsc
       - run: npm -C sudachi-wasm/packages/web run build
-      - run: npx playwright install chromium --with-deps
+      - uses: actions/cache@v3
+        id: cache-playwright
+        with:
+          path: ~/.cache/ms-playwright
+          key: cache-playwright-1.19.2
+      - if: steps.cache-playwright.outputs.cache-hit != 'true'
+        run: npx playwright install chromium --with-deps
       - run: npm -C sudachi-wasm/packages/web run test-e2e
