@@ -12,7 +12,7 @@
     "test": "vitest run",
     "napi": "napi build --platform --release",
     "napi:dev": "napi build --platform",
-    "napi:docker": "docker-compose build napi-rs && docker-compose run -T --rm napi-rs cat index.linux-x64-gnu.node > index.linux-x64-gnu.node",
+    "napi:docker": "make build",
     "strip": "strip *.node"
   },
   "devDependencies": {
