@@ -6,8 +6,8 @@ const config: PlaywrightTestConfig = {
   testDir: "./src/e2e",
   use: {
     baseURL: "http://localhost:" + PORT,
-    // TODO: this makes tests extremely slow and flaky
-    // trace: "on",
+    // TODO: `trace: "on"` makes tests extremely slow and flaky
+    trace: "off",
   },
   projects: [
     {
