@@ -7,6 +7,10 @@ export default defineConfig({
   build: {
     sourcemap: true,
   },
+  worker: {
+    // workaround for iife worker bug with `?url` https://github.com/vitejs/vite/issues/9879
+    format: "es",
+  },
   plugins: [
     windicss(),
     rakkas({

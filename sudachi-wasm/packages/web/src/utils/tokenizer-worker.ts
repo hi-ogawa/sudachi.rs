@@ -1,4 +1,3 @@
-import "./tokenizer-worker-hack-url-import";
 import initSudachi, { Morpheme, Tokenizer } from "@hiogawa/sudachi.wasm";
 import SUDACHI_WASM_URL from "@hiogawa/sudachi.wasm/pkg/index_bg.wasm?url";
 import initZip, { extract_by_index, read_metadata } from "@hiogawa/zip.wasm";
