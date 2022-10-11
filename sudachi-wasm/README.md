@@ -6,7 +6,7 @@
 
 ```sh
 # build
-npm i
+pnpm i
 npm run dev
 
 # embed dictoinary in wasm file
